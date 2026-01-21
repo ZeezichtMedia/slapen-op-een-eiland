@@ -70,7 +70,7 @@ const c = content[lang as keyof typeof content];
                             <p class="text-gray-600 mb-4">{unit.desc}</p>
                             <span class="inline-block bg-secondary/10 text-secondary font-semibold px-4 py-2 rounded-full mb-6">{unit.price}</span>
                             <a href={getRelativeLocaleUrl(lang, unit.link)} class="block text-center w-full bg-primary text-white py-3 rounded-lg font-bold hover:bg-secondary transition-colors">
-                                Bekijk & Reserveer
+                                {lang === 'nl' ? 'Bekijk & Reserveer' : lang === 'de' ? 'Ansehen & Buchen' : 'View & Book'}
                             </a>
                         </div>
                     </div>

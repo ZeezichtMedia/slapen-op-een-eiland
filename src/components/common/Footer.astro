@@ -1,5 +1,31 @@
 ---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
 const year = new Date().getFullYear();
+const lang = Astro.currentLocale || 'nl';
+
+const content = {
+    nl: {
+        description: "Rust, ruimte en water in het Groene Hart.",
+        contact: "Contact",
+        follow: "Volg Ons",
+        rights: "Alle rechten voorbehouden.",
+    },
+    en: {
+        description: "Peace, space and water in the Green Heart.",
+        contact: "Contact",
+        follow: "Follow Us",
+        rights: "All rights reserved.",
+    },
+    de: {
+        description: "Ruhe, Raum und Wasser im Grünen Herzen.",
+        contact: "Kontakt",
+        follow: "Folgen Sie Uns",
+        rights: "Alle Rechte vorbehalten.",
+    }
+}
+
+const t = content[lang as keyof typeof content];
 ---
 
 <footer class="bg-secondary text-white py-12">
@@ -8,19 +34,19 @@ const year = new Date().getFullYear();
             <div data-aos="fade-up">
                 <h3 class="text-xl font-bold mb-4">Slapen op een Eiland</h3>
                 <p class="text-white/80">
-                    Rust, ruimte en water in het Groene Hart.<br/>
+                    {t.description}<br/>
                     Houtkade 2, 3471 HA Kamerik.
                 </p>
             </div>
             <div data-aos="fade-up" data-aos-delay="100">
-                <h3 class="text-xl font-bold mb-4">Contact</h3>
+                <h3 class="text-xl font-bold mb-4">{t.contact}</h3>
                 <p class="text-white/80">
                     E: <a href="mailto:info@slapenopeeneiland.nl" class="hover:text-primary transition-colors">info@slapenopeeneiland.nl</a><br/>
                     T: <a href="tel:+31642323835" class="hover:text-primary transition-colors">06-42323835</a>
                 </p>
             </div>
             <div data-aos="fade-up" data-aos-delay="200" class="flex flex-col items-start md:items-end">
-                <h3 class="text-xl font-bold mb-4">Volg Ons</h3>
+                <h3 class="text-xl font-bold mb-4">{t.follow}</h3>
                 <div class="flex gap-4">
                     <!-- Icons placeholders -->
                     <a href="#" class="bg-white/10 p-2 rounded-full hover:bg-white/20 transition-colors" aria-label="Facebook">
@@ -33,7 +59,7 @@ const year = new Date().getFullYear();
             </div>
         </div>
         <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-white/50">
-            <p>&copy; {year} Slapen op een Eiland. Alle rechten voorbehouden.</p>
+            <p>&copy; {year} Slapen op een Eiland. {t.rights}</p>
             <p class="mt-2 md:mt-0">
                 Created by <a href="https://zee-zicht.nl" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Zee-Zicht</a>
             </p>

@@ -17,17 +17,23 @@ const content = {
     nl: {
         title: "Contact",
         subtitle: "Neem direct contact op",
-        form: { name: "Naam", email: "E-mailadres", message: "Uw Bericht", submit: "Verstuur Bericht" }
+        form: { name: "Naam", email: "E-mailadres", message: "Uw Bericht", submit: "Verstuur Bericht" },
+        introTitle: "We horen graag van u",
+        introText: "Heeft u vragen over beschikbaarheid of speciale wensen? Stuur ons gerust een berichtje. We reageren doorgaans binnen één dag."
     },
     en: {
         title: "Contact",
         subtitle: "Get in touch",
-        form: { name: "Name", email: "Email Address", message: "Your Message", submit: "Send Message" }
+        form: { name: "Name", email: "Email Address", message: "Your Message", submit: "Send Message" },
+        introTitle: "We'd love to hear from you",
+        introText: "Do you have questions about availability or special requests? Feel free to send us a message. We usually respond within one day."
     },
     de: {
         title: "Kontakt",
         subtitle: "Nehmen Sie Kontakt auf",
-        form: { name: "Name", email: "E-Mail-Adresse", message: "Ihre Nachricht", submit: "Nachricht Senden" }
+        form: { name: "Name", email: "E-Mail-Adresse", message: "Ihre Nachricht", submit: "Nachricht Senden" },
+        introTitle: "Wir freuen uns, von Ihnen zu hören",
+        introText: "Haben Sie Fragen zur Verfügbarkeit oder spezielle Wünsche? Senden Sie uns gerne eine Nachricht. Wir antworten normalerweise innerhalb eines Tages."
     }
 };
 
@@ -42,9 +48,9 @@ const c = content[lang as keyof typeof content];
             <div class="flex flex-col lg:flex-row gap-16">
                 <!-- Info & Map -->
                 <div class="lg:w-1/2" data-aos="fade-right">
-                    <h2 class="text-3xl font-bold mb-6 text-dark max-w-lg">We horen graag van u</h2>
+                    <h2 class="text-3xl font-bold mb-6 text-dark max-w-lg">{c.introTitle}</h2>
                     <p class="text-gray-600 mb-8 leading-relaxed">
-                        Heeft u vragen over beschikbaarheid of speciale wensen? Stuur ons gerust een berichtje. We reageren doorgaans binnen één dag.
+                        {c.introText}
                     </p>
                     
                     <div class="space-y-4 mb-12">
