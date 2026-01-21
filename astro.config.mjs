@@ -10,7 +10,7 @@ export default defineConfig({
     defaultLocale: "nl",
     locales: ["nl", "en", "de"],
     routing: {
-      prefixDefaultLocale: false
+      prefixDefaultLocale: true
     }
   },
   site: 'https://slapenopeeneiland.nl',
