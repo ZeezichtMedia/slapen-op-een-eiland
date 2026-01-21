@@ -17,6 +17,8 @@ const content = {
         title: "Omgeving",
         subtitle: "Ontdek het Groene Hart",
         intro: "Kamerik is de ideale uitvalsbasis. Midden in de natuur, maar dichtbij de stad. Of u nu houdt van wandelen, varen of historie, hier vindt u het allemaal.",
+        moreTitle: "En nog veel meer...",
+        cityDistance: "Utrecht en Amsterdam liggen op slechts 30 minuten rijden.",
         spots: [
             { 
                 title: "Kasteel de Haar", 
@@ -54,6 +56,8 @@ const content = {
         title: "Surroundings",
         subtitle: "Discover the Green Heart",
         intro: "Kamerik is the ideal base. In the middle of nature, yet close to the city. Whether you love walking, boating or history, you will find it all here.",
+        moreTitle: "And much more...",
+        cityDistance: "Utrecht and Amsterdam are only a 30-minute drive away.",
         spots: [
             { 
                 title: "De Haar Castle", 
@@ -91,6 +95,8 @@ const content = {
         title: "Umgebung",
         subtitle: "Entdecken Sie das Grüne Herz",
         intro: "Kamerik ist der ideale Ausgangspunkt. Mitten in der Natur, aber in der Nähe der Stadt. Ob Sie Wandern, Bootfahren oder Geschichte lieben, hier finden Sie alles.",
+        moreTitle: "Und vieles mehr...",
+        cityDistance: "Utrecht und Amsterdam sind nur 30 Autominuten entfernt.",
         spots: [
             { 
                 title: "Schloss De Haar", 
@@ -164,9 +170,9 @@ const c = content[lang as keyof typeof content];
             <div class="mt-20 text-center" data-aos="fade-up">
                  <h3 class="text-2xl font-bold mb-6 text-dark flex items-center justify-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-                    En nog veel meer...
+                    {c.moreTitle}
                  </h3>
-                 <p class="text-gray-600">Utrecht en Amsterdam liggen op slechts 30 minuten rijden.</p>
+                 <p class="text-gray-600">{c.cityDistance}</p>
             </div>
         </div>
     </section>

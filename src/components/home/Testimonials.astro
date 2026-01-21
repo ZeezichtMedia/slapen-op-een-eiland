@@ -1,35 +1,97 @@
 ---
-const reviews = [
-    {
-        name: "Anne & Thomas",
-        date: "September 2024",
-        text: "Wat een fantastische plek! We hebben genoten van de rust, het uitzicht en de luxe van het appartement. Het voelde echt als thuiskomen.",
-        rating: 5
+interface Props {
+  lang: string;
+}
+
+const { lang } = Astro.props;
+
+const content = {
+    nl: {
+        title: "Ervaringen van gasten",
+        reviews: [
+            {
+                name: "Anne & Thomas",
+                date: "September 2024",
+                text: "Wat een fantastische plek! We hebben genoten van de rust, het uitzicht en de luxe van het appartement. Het voelde echt als thuiskomen.",
+                rating: 5
+            },
+            {
+                name: "Familie de Vries",
+                date: "Augustus 2024",
+                text: "De kinderen vonden het geweldig om de koeien te zien. Wij genoten vooral van de stilte en de prachtige zonsondergang vanaf ons terras.",
+                rating: 5
+            },
+            {
+                name: "Lisa",
+                date: "Juli 2024",
+                text: "Een verborgen parel in het Groene Hart. Alles is tot in de puntjes verzorgd. Wij komen zeker terug!",
+                rating: 5
+            }
+        ],
+        readMore: "Lees meer reviews op Bedandbreakfast.nl"
     },
-    {
-        name: "Familie de Vries",
-        date: "Augustus 2024",
-        text: "De kinderen vonden het geweldig om de koeien te zien. Wij genoten vooral van de stilte en de prachtige zonsondergang vanaf ons terras.",
-        rating: 5
+    en: {
+        title: "Guest Experiences",
+        reviews: [
+            {
+                name: "Anne & Thomas",
+                date: "September 2024",
+                text: "What a fantastic place! We enjoyed the peace, the view, and the luxury of the apartment. It truly felt like coming home.",
+                rating: 5
+            },
+            {
+                name: "The Vries Family",
+                date: "August 2024",
+                text: "The children loved seeing the cows. We especially enjoyed the silence and the beautiful sunset from our terrace.",
+                rating: 5
+            },
+            {
+                name: "Lisa",
+                date: "July 2024",
+                text: "A hidden gem in the Green Heart. Everything is taken care of down to the last detail. We will definitely be back!",
+                rating: 5
+            }
+        ],
+        readMore: "Read more reviews on Bedandbreakfast.nl"
     },
-    {
-        name: "Lisa",
-        date: "Juli 2024",
-        text: "Een verborgen parel in het Groene Hart. Alles is tot in de puntjes verzorgd. Wij komen zeker terug!",
-        rating: 5
+    de: {
+        title: "Gästeerfahrungen",
+        reviews: [
+            {
+                name: "Anne & Thomas",
+                date: "September 2024",
+                text: "Was für ein fantastischer Ort! Wir haben die Ruhe, die Aussicht und den Luxus der Wohnung genossen. Es fühlte sich wirklich wie nach Hause kommen an.",
+                rating: 5
+            },
+            {
+                name: "Familie de Vries",
+                date: "August 2024",
+                text: "Die Kinder fanden es toll, die Kühe zu sehen. Wir genossen vor allem die Stille und den wunderschönen Sonnenuntergang von unserer Terrasse aus.",
+                rating: 5
+            },
+            {
+                name: "Lisa",
+                date: "Juli 2024",
+                text: "Ein verstecktes Juwel im Grünen Herzen. Alles ist bis ins letzte Detail gepflegt. Wir kommen auf jeden Fall wieder!",
+                rating: 5
+            }
+        ],
+        readMore: "Lesen Sie mehr Bewertungen auf Bedandbreakfast.nl"
     }
-];
+};
+
+const c = content[lang as keyof typeof content];
 ---
 
 <section class="py-20 bg-white">
     <div class="container mx-auto px-4">
         <div class="text-center mb-16" data-aos="fade-up">
-            <h2 class="text-3xl md:text-5xl font-luxury italic text-dark mb-4">Ervaringen van gasten</h2>
+            <h2 class="text-3xl md:text-5xl font-luxury italic text-dark mb-4">{c.title}</h2>
             <div class="w-24 h-1 bg-secondary mx-auto"></div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {reviews.map((review, index) => (
+            {c.reviews.map((review, index) => (
                 <div class="bg-light p-8 rounded-2xl shadow-lg relative border border-gray-100" data-aos="fade-up" data-aos-delay={index * 100}>
                     <!-- Quote Icon -->
                     <div class="absolute -top-4 left-8 text-secondary bg-white px-2 text-4xl font-serif leading-none">"</div>
@@ -53,7 +115,7 @@ const reviews = [
         
         <div class="text-center mt-12">
             <a href="https://www.bedandbreakfast.nl/nl/a/74869/slapen-op-een-eiland/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-primary font-semibold hover:text-secondary transition-colors border-b border-primary hover:border-secondary pb-1">
-                Lees meer reviews op Bedandbreakfast.nl
+                {c.readMore}
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             </a>
         </div>

@@ -13,12 +13,53 @@ export function getStaticPaths() {
 const { lang } = Astro.params;
 
 const content = {
-    nl: { title: "Galerij", subtitle: "Een impressie van de sfeer" },
-    en: { title: "Gallery", subtitle: "An impression of the atmosphere" },
-    de: { title: "Galerie", subtitle: "Ein Eindruck von der Atmosphäre" }
+    nl: { title: "Galerij", subtitle: "Een impressie van de sfeer", comingSoon: "Meer foto's volgen binnenkort." },
+    en: { title: "Gallery", subtitle: "An impression of the atmosphere", comingSoon: "More photos coming soon." },
+    de: { title: "Galerie", subtitle: "Ein Eindruck von der Atmosphäre", comingSoon: "Weitere Fotos folgen in Kürze." }
 };
 
 const c = content[lang as keyof typeof content];
+
+const images = {
+    nl: [
+        { src: "/images/gallery/image-1.webp", alt: "Sfeerimpressie De Tol", span: "md:col-span-2 md:row-span-2" },
+        { src: "/images/gallery/image-2.webp", alt: "Interieur detail", span: "" },
+        { src: "/images/gallery/image-3.webp", alt: "Zithoek", span: "" },
+        { src: "/images/gallery/image-4.webp", alt: "Uitzicht", span: "md:col-span-2" },
+        { src: "/images/gallery/image-5.webp", alt: "Slaapkamer", span: "" },
+        { src: "/images/gallery/image-6.webp", alt: "Badkamer", span: "" },
+        { src: "/images/gallery/image-7.webp", alt: "Keuken", span: "" },
+        { src: "/images/gallery/image-8.webp", alt: "Omgeving", span: "" },
+        { src: "/images/gallery/image-9.webp", alt: "Terras", span: "md:col-span-2" },
+        { src: "/images/gallery/image-10.webp", alt: "Avondzon", span: "" },
+    ],
+    en: [
+        { src: "/images/gallery/image-1.webp", alt: "Atmosphere Impression De Tol", span: "md:col-span-2 md:row-span-2" },
+        { src: "/images/gallery/image-2.webp", alt: "Interior detail", span: "" },
+        { src: "/images/gallery/image-3.webp", alt: "Sitting area", span: "" },
+        { src: "/images/gallery/image-4.webp", alt: "View", span: "md:col-span-2" },
+        { src: "/images/gallery/image-5.webp", alt: "Bedroom", span: "" },
+        { src: "/images/gallery/image-6.webp", alt: "Bathroom", span: "" },
+        { src: "/images/gallery/image-7.webp", alt: "Kitchen", span: "" },
+        { src: "/images/gallery/image-8.webp", alt: "Surroundings", span: "" },
+        { src: "/images/gallery/image-9.webp", alt: "Terrace", span: "md:col-span-2" },
+        { src: "/images/gallery/image-10.webp", alt: "Evening sun", span: "" },
+    ],
+    de: [
+        { src: "/images/gallery/image-1.webp", alt: "Atmosphärenimpression De Tol", span: "md:col-span-2 md:row-span-2" },
+        { src: "/images/gallery/image-2.webp", alt: "Innendetail", span: "" },
+        { src: "/images/gallery/image-3.webp", alt: "Sitzecke", span: "" },
+        { src: "/images/gallery/image-4.webp", alt: "Aussicht", span: "md:col-span-2" },
+        { src: "/images/gallery/image-5.webp", alt: "Schlafzimmer", span: "" },
+        { src: "/images/gallery/image-6.webp", alt: "Badezimmer", span: "" },
+        { src: "/images/gallery/image-7.webp", alt: "Küche", span: "" },
+        { src: "/images/gallery/image-8.webp", alt: "Umgebung", span: "" },
+        { src: "/images/gallery/image-9.webp", alt: "Terrasse", span: "md:col-span-2" },
+        { src: "/images/gallery/image-10.webp", alt: "Abendsonne", span: "" },
+    ]
+};
+
+const currentImages = images[lang as keyof typeof images];
 ---
 
 <Layout title={`${c.title} - Slapen op een Eiland`} description={c.subtitle}>
@@ -27,18 +68,7 @@ const c = content[lang as keyof typeof content];
     <section class="py-20">
         <div class="container mx-auto px-4 text-center text-gray-500">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {[
-                    { src: "/images/gallery/image-1.webp", alt: "Sfeerimpressie De Tol", span: "md:col-span-2 md:row-span-2" },
-                    { src: "/images/gallery/image-2.webp", alt: "Interieur detail", span: "" },
-                    { src: "/images/gallery/image-3.webp", alt: "Zithoek", span: "" },
-                    { src: "/images/gallery/image-4.webp", alt: "Uitzicht", span: "md:col-span-2" },
-                    { src: "/images/gallery/image-5.webp", alt: "Slaapkamer", span: "" },
-                    { src: "/images/gallery/image-6.webp", alt: "Badkamer", span: "" },
-                    { src: "/images/gallery/image-7.webp", alt: "Keuken", span: "" },
-                    { src: "/images/gallery/image-8.webp", alt: "Omgeving", span: "" },
-                    { src: "/images/gallery/image-9.webp", alt: "Terras", span: "md:col-span-2" },
-                    { src: "/images/gallery/image-10.webp", alt: "Avondzon", span: "" },
-                ].map((img, idx) => (
+                {currentImages.map((img, idx) => (
                     <div class={`relative group overflow-hidden rounded-xl shadow-md ${img.span}`} data-aos="fade-up" data-aos-delay={idx * 50}>
                         <img 
                             src={img.src} 
@@ -49,7 +79,7 @@ const c = content[lang as keyof typeof content];
                     </div>
                 ))}
             </div>
-            <p class="mt-8">Meer foto's volgen binnenkort.</p>
+            <p class="mt-8">{c.comingSoon}</p>
         </div>
     </section>
 </Layout>

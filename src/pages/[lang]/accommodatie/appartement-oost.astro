@@ -22,7 +22,10 @@ const content = {
         amenitiesTitle: "Voorzieningen",
         amenities: ["Wifi", "TV", "Keuken", "Koffiezetapparaat", "Waterkoker", "Koelkast", "Vaatwasser", "Oven/Magnetron", "Bedlinnen", "Handdoeken", "Föhn", "Gratis parkeren", "Eigen entree"],
         price: "Vanaf €110 per nacht",
-        bookBtn: "Reserveer Appartement Oost"
+        bookBtn: "Reserveer Appartement Oost",
+        priceLabel: "Prijs",
+        capacity: "Geschikt voor 2 personen",
+        minStay: "Minimaal 2 nachten"
     },
     en: {
         title: "Apartment East",
@@ -32,7 +35,10 @@ const content = {
         amenitiesTitle: "Amenities",
         amenities: ["Wifi", "TV", "Kitchen", "Coffee machine", "Kettle", "Fridge", "Dishwasher", "Oven/Microwave", "Bed linen", "Towels", "Hairdryer", "Free parking", "Private entrance"],
         price: "From €110 per night",
-        bookBtn: "Book Apartment East"
+        bookBtn: "Book Apartment East",
+        priceLabel: "Price",
+        capacity: "Suitable for 2 persons",
+        minStay: "Minimum 2 nights"
     },
     de: {
         title: "Apartment Ost",
@@ -42,7 +48,10 @@ const content = {
         amenitiesTitle: "Ausstattung",
         amenities: ["WLAN", "TV", "Küche", "Kaffeemaschine", "Wasserkocher", "Kühlschrank", "Geschirrspüler", "Backofen/Mikrowelle", "Bettwäsche", "Handtücher", "Föhn", "Kostenlose Parkplätze", "Eigener Eingang"],
         price: "Ab €110 pro Nacht",
-        bookBtn: "Apartment Ost Buchen"
+        bookBtn: "Apartment Ost Buchen",
+        priceLabel: "Preis",
+        capacity: "Geeignet für 2 Personen",
+        minStay: "Mindestens 2 Nächte"
     }
 };
 
@@ -84,7 +93,7 @@ const c = content[lang as keyof typeof content];
                 <div class="lg:w-1/3" data-aos="fade-left">
                     <div class="bg-white p-8 rounded-2xl shadow-xl sticky top-32 border border-gray-100">
                         <div class="text-center mb-6">
-                            <span class="block text-gray-500 text-sm uppercase tracking-wide mb-2">Prijs</span>
+                            <span class="block text-gray-500 text-sm uppercase tracking-wide mb-2">{c.priceLabel}</span>
                             <span class="text-3xl font-bold text-primary">{c.price}</span>
                         </div>
                         
@@ -95,11 +104,11 @@ const c = content[lang as keyof typeof content];
                         <div class="mt-8 pt-8 border-t border-gray-100">
                             <div class="flex items-center gap-4 text-sm text-gray-500 mb-2">
                                 <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                                <span>Geschikt voor 2 personen</span>
+                                <span>{c.capacity}</span>
                             </div>
                             <div class="flex items-center gap-4 text-sm text-gray-500">
                                 <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                                <span>Minimaal 2 nachten</span>
+                                <span>{c.minStay}</span>
                             </div>
                         </div>
                     </div>
