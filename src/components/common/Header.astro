@@ -1,0 +1,173 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+const lang = Astro.currentLocale || 'nl';
+
+const navItems = {
+    nl: [
+        { name: 'Home', path: '' },
+        { 
+            name: 'Accommodatie', 
+            path: 'accommodatie',
+            children: [
+                { name: 'Appartement West', path: 'accommodatie/appartement-west' },
+                { name: 'Appartement Oost', path: 'accommodatie/appartement-oost' }
+            ]
+        },
+        { name: 'Omgeving', path: 'omgeving' },
+        { name: 'Galerij', path: 'galerij' },
+        { name: 'Contact', path: 'contact' },
+    ],
+    en: [
+        { name: 'Home', path: '' },
+        { 
+            name: 'Accommodation', 
+            path: 'accommodatie',
+            children: [
+                { name: 'Apartment West', path: 'accommodatie/appartement-west' },
+                { name: 'Apartment East', path: 'accommodatie/appartement-oost' }
+            ]
+        },
+        { name: 'Surroundings', path: 'omgeving' },
+        { name: 'Gallery', path: 'galerij' },
+        { name: 'Contact', path: 'contact' },
+    ],
+    de: [
+        { name: 'Home', path: '' },
+        { 
+            name: 'Unterkunft', 
+            path: 'accommodatie',
+            children: [
+                { name: 'Apartment West', path: 'accommodatie/appartement-west' },
+                { name: 'Apartment Ost', path: 'accommodatie/appartement-oost' }
+            ]
+        },
+        { name: 'Umgebung', path: 'omgeving' },
+        { name: 'Galerie', path: 'galerij' },
+        { name: 'Kontakt', path: 'contact' },
+    ]
+};
+
+const currentNav = navItems[lang as keyof typeof navItems];
+---
+
+<header class="fixed w-full z-50 transition-all duration-300 bg-white/90 backdrop-blur-md shadow-sm" id="main-header">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center relative z-50">
+        <!-- Logo -->
+        <a href={getRelativeLocaleUrl(lang, '')} class="block">
+            <img src="/images/logo.png" alt="Slapen op een Eiland Logo" class="h-16 md:h-24 w-auto" />
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden md:flex items-center gap-8">
+            {currentNav.map(item => (
+                item.children ? (
+                    <div class="relative group">
+                        <a href={getRelativeLocaleUrl(lang, item.path)} class="text-dark hover:text-primary transition-colors font-medium flex items-center gap-1">
+                            {item.name}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transform group-hover:rotate-180 transition-transform"><path d="M6 9l6 6 6-6"/></svg>
+                        </a>
+                        <!-- Dropdown -->
+                        <div class="absolute left-0 mt-2 w-56 bg-white rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-left -translate-y-2 group-hover:translate-y-0 border border-gray-100 overflow-hidden py-2">
+                            {item.children.map(child => (
+                                <a href={getRelativeLocaleUrl(lang, child.path)} class="block px-6 py-3 text-sm text-gray-600 hover:bg-gray-50 hover:text-primary transition-colors font-medium">
+                                    {child.name}
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+                ) : (
+                    <a href={getRelativeLocaleUrl(lang, item.path)} class="text-dark hover:text-primary transition-colors font-medium">
+                        {item.name}
+                    </a>
+                )
+            ))}
+        </nav>
+
+        <!-- Language Switcher & Mobile Toggle -->
+        <div class="flex items-center gap-6">
+            <!-- CTA Button -->
+             <a href={getRelativeLocaleUrl(lang, 'reserveren')} class="hidden md:inline-flex items-center justify-center px-6 py-2 bg-primary text-white font-serif font-bold rounded-full hover:bg-secondary transition-colors shadow-md transform hover:-translate-y-0.5 max-sm:hidden">
+                {lang === 'nl' ? 'Reserveren' : lang === 'de' ? 'Reservieren' : 'Book Now'}
+            </a>
+
+             <!-- Desktop Lang -->
+            <div class="hidden md:flex items-center gap-2">
+                <a href={getRelativeLocaleUrl('nl', '')} class={`text-sm font-medium transition-colors ${lang === 'nl' ? 'text-primary' : 'text-gray-400 hover:text-dark'}`}>NL</a>
+                <span class="text-gray-300">|</span>
+                <a href={getRelativeLocaleUrl('en', '')} class={`text-sm font-medium transition-colors ${lang === 'en' ? 'text-primary' : 'text-gray-400 hover:text-dark'}`}>EN</a>
+                <span class="text-gray-300">|</span>
+                <a href={getRelativeLocaleUrl('de', '')} class={`text-sm font-medium transition-colors ${lang === 'de' ? 'text-primary' : 'text-gray-400 hover:text-dark'}`}>DE</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden flex items-center gap-2 text-dark group" aria-label="Menu">
+                <span class="text-sm font-medium uppercase tracking-wider whitespace-nowrap leading-none group-hover:text-primary transition-colors">Menu</span>
+                <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:text-primary transition-colors"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-[9999] w-screen h-screen flex flex-col items-center justify-center bg-[#222222] text-white opacity-0 invisible transition-opacity duration-300" style="background-color: #222222 !important;">
+        
+        {/* 1. De Sluitknop (Rechtsboven gepositioneerd) */}
+        <button 
+            id="close-menu-btn" 
+            class="absolute top-6 right-6 p-2 hover:opacity-75"
+            aria-label="Sluit menu"
+        >
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+
+        {/* 2. De Navigatie Links (Gecentreerd in het midden) */}
+        <nav class="flex flex-col space-y-8 text-center">
+            {currentNav.map(item => (
+                <a href={getRelativeLocaleUrl(lang, item.path)} class="text-3xl font-serif font-bold tracking-wide hover:text-accent">
+                    {item.name}
+                </a>
+            ))}
+            <a href={getRelativeLocaleUrl(lang, 'reserveren')} class="inline-block px-8 py-3 bg-white text-[#222222] font-serif font-bold rounded-full hover:bg-gray-200 transition-colors shadow-lg mt-4 w-fit mx-auto">
+                {lang === 'nl' ? 'Reserveren' : lang === 'de' ? 'Reservieren' : 'Book Now'}
+            </a>
+        </nav>
+        
+        {/* Talenwissel of extra items */}
+        <div class="pt-8 flex justify-center space-x-4 text-sm font-sans uppercase tracking-widest opacity-80">
+            <a href={getRelativeLocaleUrl('nl', '')} class={`hover:text-accent transition-colors ${lang === 'nl' ? 'text-accent' : ''}`}>NL</a>
+            <a href={getRelativeLocaleUrl('en', '')} class={`hover:text-accent transition-colors ${lang === 'en' ? 'text-accent' : ''}`}>EN</a>
+            <a href={getRelativeLocaleUrl('de', '')} class={`hover:text-accent transition-colors ${lang === 'de' ? 'text-accent' : ''}`}>DE</a>
+        </div>
+        
+    </div>
+</header>
+
+<script>
+    const openBtn = document.getElementById('mobile-menu-btn');
+    const closeBtn = document.getElementById('close-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+
+    function toggleMenu() {
+        const isClosed = menu?.classList.contains('invisible');
+        
+        if (isClosed) {
+            menu?.classList.remove('invisible', 'opacity-0');
+            menu?.classList.add('opacity-100'); // Explicitly add opacity-100
+            document.body.classList.add('overflow-hidden');
+        } else {
+            menu?.classList.remove('opacity-100'); // Explicitly remove opacity-100
+            menu?.classList.add('invisible', 'opacity-0');
+            document.body.classList.remove('overflow-hidden');
+        }
+    }
+
+    openBtn?.addEventListener('click', toggleMenu);
+    closeBtn?.addEventListener('click', toggleMenu);
+    
+    // Close menu when clicking a link
+    menu?.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', toggleMenu);
+    });
+</script>

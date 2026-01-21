@@ -1,0 +1,61 @@
+---
+const reviews = [
+    {
+        name: "Anne & Thomas",
+        date: "September 2024",
+        text: "Wat een fantastische plek! We hebben genoten van de rust, het uitzicht en de luxe van het appartement. Het voelde echt als thuiskomen.",
+        rating: 5
+    },
+    {
+        name: "Familie de Vries",
+        date: "Augustus 2024",
+        text: "De kinderen vonden het geweldig om de koeien te zien. Wij genoten vooral van de stilte en de prachtige zonsondergang vanaf ons terras.",
+        rating: 5
+    },
+    {
+        name: "Lisa",
+        date: "Juli 2024",
+        text: "Een verborgen parel in het Groene Hart. Alles is tot in de puntjes verzorgd. Wij komen zeker terug!",
+        rating: 5
+    }
+];
+---
+
+<section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-3xl md:text-5xl font-luxury italic text-dark mb-4">Ervaringen van gasten</h2>
+            <div class="w-24 h-1 bg-secondary mx-auto"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {reviews.map((review, index) => (
+                <div class="bg-light p-8 rounded-2xl shadow-lg relative border border-gray-100" data-aos="fade-up" data-aos-delay={index * 100}>
+                    <!-- Quote Icon -->
+                    <div class="absolute -top-4 left-8 text-secondary bg-white px-2 text-4xl font-serif leading-none">"</div>
+                    
+                    <p class="text-gray-600 italic mb-6 font-serif leading-relaxed text-lg">
+                        {review.text}
+                    </p>
+                    
+                    <div class="mt-auto">
+                        <div class="flex text-secondary mb-2">
+                            {[...Array(review.rating)].map(() => (
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                            ))}
+                        </div>
+                        <p class="text-dark font-bold font-serif">{review.name}</p>
+                        <p class="text-gray-400 text-sm">{review.date}</p>
+                    </div>
+                </div>
+            ))}
+        </div>
+        
+        <div class="text-center mt-12">
+            <a href="https://www.bedandbreakfast.nl/nl/a/74869/slapen-op-een-eiland/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-primary font-semibold hover:text-secondary transition-colors border-b border-primary hover:border-secondary pb-1">
+                Lees meer reviews op Bedandbreakfast.nl
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+        </div>
+    </div>
+</section>

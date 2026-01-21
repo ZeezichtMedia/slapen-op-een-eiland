@@ -1,0 +1,42 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-secondary text-white py-12">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            <div data-aos="fade-up">
+                <h3 class="text-xl font-bold mb-4">Slapen op een Eiland</h3>
+                <p class="text-white/80">
+                    Rust, ruimte en water in het Groene Hart.<br/>
+                    Houtkade 2, 3471 HA Kamerik.
+                </p>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="100">
+                <h3 class="text-xl font-bold mb-4">Contact</h3>
+                <p class="text-white/80">
+                    E: <a href="mailto:info@slapenopeeneiland.nl" class="hover:text-primary transition-colors">info@slapenopeeneiland.nl</a><br/>
+                    T: <a href="tel:+31642323835" class="hover:text-primary transition-colors">06-42323835</a>
+                </p>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="200" class="flex flex-col items-start md:items-end">
+                <h3 class="text-xl font-bold mb-4">Volg Ons</h3>
+                <div class="flex gap-4">
+                    <!-- Icons placeholders -->
+                    <a href="#" class="bg-white/10 p-2 rounded-full hover:bg-white/20 transition-colors" aria-label="Facebook">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                    </a>
+                    <a href="#" class="bg-white/10 p-2 rounded-full hover:bg-white/20 transition-colors" aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-white/50">
+            <p>&copy; {year} Slapen op een Eiland. Alle rechten voorbehouden.</p>
+            <p class="mt-2 md:mt-0">
+                Created by <a href="https://zee-zicht.nl" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Zee-Zicht</a>
+            </p>
+        </div>
+    </div>
+</footer>

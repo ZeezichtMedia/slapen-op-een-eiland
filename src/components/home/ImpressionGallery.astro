@@ -1,0 +1,30 @@
+---
+const images = [
+    { src: "/images/gallery/image-2.webp", alt: "Slaapkamer met sfeer", class: "md:col-span-2 md:row-span-2" },
+    { src: "/images/gallery/image-3.webp", alt: "Luxe badkamer details", class: "md:col-span-1 md:row-span-1" },
+    { src: "/images/gallery/image-5.webp", alt: "Prachtig uitzicht", class: "md:col-span-1 md:row-span-1" },
+    { src: "/images/gallery/image-4.webp", alt: "Buitenkant in de natuur", class: "md:col-span-2 md:row-span-1" },
+];
+---
+
+<section class="py-20 bg-light">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-3xl md:text-5xl font-luxury italic text-dark mb-4">Een indruk van de sfeer</h2>
+            <div class="w-24 h-1 bg-secondary mx-auto"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4 h-[800px] md:h-[600px]">
+            {images.map((img, index) => (
+                <div class={`relative group overflow-hidden rounded-xl shadow-md ${img.class}`} data-aos="fade-up" data-aos-delay={index * 100}>
+                    <img 
+                        src={img.src} 
+                        alt={img.alt} 
+                        class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" 
+                    />
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500"></div>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>

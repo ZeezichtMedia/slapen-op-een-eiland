@@ -1,0 +1,225 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+export function getStaticPaths() {
+  return [
+    {params: {lang: 'nl'}},
+    {params: {lang: 'en'}},
+    {params: {lang: 'de'}},
+  ];
+}
+
+const { lang } = Astro.params;
+
+const content = {
+    nl: {
+        title: "Reserveren",
+        subtitle: "Boek uw verblijf in het Groene Hart",
+        intro: "Kies uw favoriete appartement en de gewenste data. Wij nemen zo snel mogelijk contact met u op om de reservering te bevestigen.",
+        steps: {
+            1: "Kies uw appartement",
+            2: "Kies uw data",
+            3: "Uw gegevens"
+        },
+        rooms: {
+            west: {
+                name: "Appartement West",
+                desc: "55m² • Avondzon • Uitzicht op polder",
+                price: "€ 135 / nacht"
+            },
+            oost: {
+                name: "Appartement Oost",
+                desc: "55m² • Ochtendzon • Privé terras",
+                price: "€ 135 / nacht"
+            }
+        },
+        form: {
+            arrival: "Aankomstdatum",
+            departure: "Vertrekdatum",
+            name: "Naam",
+            email: "E-mailadres",
+            phone: "Telefoonnummer",
+            message: "Opmerkingen of vragen",
+            submit: "Aanvraag Versturen"
+        }
+    },
+    en: {
+        title: "Reservations",
+        subtitle: "Book your stay in the Green Heart",
+        intro: "Choose your favorite apartment and preferred dates. We will contact you as soon as possible to confirm the reservation.",
+        steps: {
+            1: "Choose your apartment",
+            2: "Select dates",
+            3: "Your details"
+        },
+        rooms: {
+            west: {
+                name: "Apartment West",
+                desc: "55m² • Evening sun • Polder view",
+                price: "€ 135 / night"
+            },
+            oost: {
+                name: "Apartment East",
+                desc: "55m² • Morning sun • Private terrace",
+                price: "€ 135 / night"
+            }
+        },
+        form: {
+            arrival: "Arrival date",
+            departure: "Departure date",
+            name: "Name",
+            email: "Email address",
+            phone: "Phone number",
+            message: "Comments or questions",
+            submit: "Send Request"
+        }
+    },
+    de: {
+        title: "Reservieren",
+        subtitle: "Buchen Sie Ihren Aufenthalt im Grünen Herzen",
+        intro: "Wählen Sie Ihr Lieblingsapartment und die gewünschten Daten. Wir werden uns so schnell wie möglich bei Ihnen melden, um die Reservierung zu bestätigen.",
+        steps: {
+            1: "Wählen Sie Ihr Apartment",
+            2: "Daten auswählen",
+            3: "Ihre Daten"
+        },
+        rooms: {
+            west: {
+                name: "Apartment West",
+                desc: "55m² • Abendsonne • Polderblick",
+                price: "€ 135 / Nacht"
+            },
+            oost: {
+                name: "Apartment Ost",
+                desc: "55m² • Morgensonne • Private Terrasse",
+                price: "€ 135 / Nacht"
+            }
+        },
+        form: {
+            arrival: "Anreisedatum",
+            departure: "Abreisedatum",
+            name: "Name",
+            email: "E-Mail-Adresse",
+            phone: "Telefonnummer",
+            message: "Bemerkungen oder Fragen",
+            submit: "Anfrage Senden"
+        }
+    }
+};
+
+const c = content[lang as keyof typeof content];
+---
+
+<Layout title={`${c.title} - Slapen op een Eiland`} description={c.subtitle}>
+    <div class="pt-32 pb-20 bg-light min-h-screen">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h1 class="text-4xl md:text-6xl font-luxury italic text-dark mb-4">{c.title}</h1>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto font-light">{c.intro}</p>
+            </div>
+
+            <form class="bg-white p-8 md:p-12 rounded-3xl shadow-xl space-y-12 border border-gray-100" data-aos="fade-up" data-aos-delay="100">
+                
+                <!-- Step 1: Room Selection -->
+                <div class="space-y-6">
+                    <div class="flex items-center gap-4 text-secondary">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full border-2 border-secondary font-bold font-serif">1</span>
+                        <h2 class="text-2xl font-serif text-dark">{c.steps[1]}</h2>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Room Option 1 -->
+                        <label class="cursor-pointer group relative">
+                            <input type="radio" name="room" value="west" class="peer sr-only" />
+                            <div class="p-6 rounded-2xl border-2 border-gray-100 peer-checked:border-secondary peer-checked:bg-secondary/5 transition-all duration-300 hover:border-secondary/50 h-full flex flex-col items-start gap-4">
+                                <span class="bg-gray-100 text-gray-600 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider group-hover:bg-secondary group-hover:text-white transition-colors">West</span>
+                                <div>
+                                    <h3 class="text-xl font-bold text-dark mb-1">{c.rooms.west.name}</h3>
+                                    <p class="text-gray-500 text-sm mb-3">{c.rooms.west.desc}</p>
+                                    <p class="text-secondary font-serif font-bold text-lg">{c.rooms.west.price}</p>
+                                </div>
+                                <div class="w-6 h-6 rounded-full border-2 border-gray-300 ml-auto mt-auto peer-checked:border-secondary peer-checked:bg-secondary relative flex items-center justify-center transition-all">
+                                    <div class="w-2.5 h-2.5 bg-white rounded-full opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+                                </div>
+                            </div>
+                        </label>
+
+                        <!-- Room Option 2 -->
+                        <label class="cursor-pointer group relative">
+                            <input type="radio" name="room" value="oost" class="peer sr-only" />
+                            <div class="p-6 rounded-2xl border-2 border-gray-100 peer-checked:border-secondary peer-checked:bg-secondary/5 transition-all duration-300 hover:border-secondary/50 h-full flex flex-col items-start gap-4">
+                                <span class="bg-gray-100 text-gray-600 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider group-hover:bg-secondary group-hover:text-white transition-colors">Oost</span>
+                                <div>
+                                    <h3 class="text-xl font-bold text-dark mb-1">{c.rooms.oost.name}</h3>
+                                    <p class="text-gray-500 text-sm mb-3">{c.rooms.oost.desc}</p>
+                                    <p class="text-secondary font-serif font-bold text-lg">{c.rooms.oost.price}</p>
+                                </div>
+                                <div class="w-6 h-6 rounded-full border-2 border-gray-300 ml-auto mt-auto peer-checked:border-secondary peer-checked:bg-secondary relative flex items-center justify-center transition-all">
+                                    <div class="w-2.5 h-2.5 bg-white rounded-full opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Step 2: Date Selection -->
+                <div class="space-y-6">
+                    <div class="flex items-center gap-4 text-secondary">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full border-2 border-secondary font-bold font-serif">2</span>
+                        <h2 class="text-2xl font-serif text-dark">{c.steps[2]}</h2>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label for="arrival" class="text-sm font-medium text-gray-700">{c.form.arrival}</label>
+                            <input type="date" id="arrival" name="arrival" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all placeholder:text-gray-400 bg-gray-50" required />
+                        </div>
+                        <div class="space-y-2">
+                            <label for="departure" class="text-sm font-medium text-gray-700">{c.form.departure}</label>
+                            <input type="date" id="departure" name="departure" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all placeholder:text-gray-400 bg-gray-50" required />
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Step 3: Personal Details -->
+                 <div class="space-y-6">
+                    <div class="flex items-center gap-4 text-secondary">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full border-2 border-secondary font-bold font-serif">3</span>
+                        <h2 class="text-2xl font-serif text-dark">{c.steps[3]}</h2>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 gap-6">
+                        <div class="space-y-2">
+                            <label for="name" class="text-sm font-medium text-gray-700">{c.form.name}</label>
+                            <input type="text" id="name" name="name" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all bg-gray-50" required />
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                             <div class="space-y-2">
+                                <label for="email" class="text-sm font-medium text-gray-700">{c.form.email}</label>
+                                <input type="email" id="email" name="email" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all bg-gray-50" required />
+                            </div>
+                             <div class="space-y-2">
+                                <label for="phone" class="text-sm font-medium text-gray-700">{c.form.phone}</label>
+                                <input type="tel" id="phone" name="phone" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all bg-gray-50" />
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label for="message" class="text-sm font-medium text-gray-700">{c.form.message}</label>
+                            <textarea id="message" name="message" rows="4" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all bg-gray-50"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-6">
+                    <button type="submit" class="w-full md:w-auto px-10 py-4 bg-secondary text-white rounded-full font-serif text-lg font-medium hover:bg-dark transition-all duration-300 transform hover:scale-[1.02] shadow-lg hover:shadow-xl">
+                        {c.form.submit}
+                    </button>
+                    <p class="text-xs text-gray-400 mt-4 text-center md:text-left">
+                        * Dit is een aanvraag, nog geen definitieve boeking.
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+</Layout>

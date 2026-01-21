@@ -1,0 +1,117 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/home/Hero.astro';
+import FeatureCard from '../../components/ui/FeatureCard.astro';
+import ImpressionGallery from '../../components/home/ImpressionGallery.astro';
+import Testimonials from '../../components/home/Testimonials.astro';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+export function getStaticPaths() {
+  return [
+    {params: {lang: 'nl'}},
+    {params: {lang: 'en'}},
+    {params: {lang: 'de'}},
+  ];
+}
+
+const { lang } = Astro.params;
+
+const content = {
+    nl: {
+        title: "Slapen op een Eiland",
+        subtitle: "Licht, lucht en ruimte midden in het Groene Hart",
+        cta: "Bekijk Accommodaties",
+        usps: [
+            { title: "Vrijheid & Privacy", description: "Een volledig appartement van 55m² voor uzelf, met eigen opgang en keuken. Geen gedeelde ruimtes, maar volledige privacy." },
+            { title: "Licht & Uitzicht", description: "Grote dakramen bieden een spectaculair uitzicht op de sterrenhemel en de omliggende polder. Licht speelt de hoofdrol." },
+            { title: "Centraal Gelegen", description: "Het gevoel van een eiland, maar binnen 30 minuten in Amsterdam of Utrecht. De perfecte uitvalsbasis." }
+        ],
+        introTitle: "Thuiskomen in de Polder",
+        introText: "Slapen op een Eiland is geen standaard B&B. Het is een plek waar u echt tot rust komt. Gelegen aan de historische Houtkade in Kamerik, omringd door water en weilanden, vindt u hier een oase van stilte. Onze appartementen zijn ontworpen om u de ruimte te geven die u thuis ook zou wensen, maar dan met een uitzicht dat nooit verveelt."
+    },
+    en: {
+        title: "Sleeping on an Island",
+        subtitle: "Light, air and space in the heart of the Green Heart",
+        cta: "View Accommodations",
+        usps: [
+            { title: "Freedom & Privacy", description: "A complete 55m² apartment all to yourself, with private entrance and kitchen. No shared spaces, just complete privacy." },
+            { title: "Light & Views", description: "Large skylights offer spectacular views of the starry sky and the surrounding polder. Light plays the leading role." },
+            { title: "Centrally Located", description: "The feeling of an island, yet within 30 minutes of Amsterdam or Utrecht. The perfect base for exploring." }
+        ],
+        introTitle: "Coming Home in the Polder",
+        introText: "Sleeping on an Island is not a standard B&B. It is a place where you can truly unwind. Located on the historic Houtkade in Kamerik, surrounded by water and meadows, you will find an oasis of silence. Our apartments are designed to give you the space you would want at home, but with a view that never bores."
+    },
+    de: {
+        title: "Schlafen auf einer Insel",
+        subtitle: "Licht, Luft und Raum im Herzen des Grünen Herzens",
+        cta: "Unterkünfte ansehen",
+        usps: [
+            { title: "Freiheit & Privatsphäre", description: "Ein komplettes 55m² Apartment ganz für Sie allein, mit eigenem Eingang und Küche. Keine Gemeinschaftsräume, nur Privatsphäre." },
+            { title: "Licht & Aussicht", description: "Große Dachfenster bieten spektakuläre Ausblicke auf den Sternenhimmel und den umliegenden Polder. Licht spielt die Hauptrolle." },
+            { title: "Zentral Gelegen", description: "Das Inselgefühl, und doch nur 30 Minuten von Amsterdam oder Utrecht entfernt. Der perfekte Ausgangspunkt." }
+        ],
+        introTitle: "Nach Hause kommen im Polder",
+        introText: "Schlafen auf einer Insel ist kein Standard-B&B. Es ist ein Ort, an dem Sie wirklich zur Ruhe kommen können. Gelegen an der historischen Houtkade in Kamerik, umgeben von Wasser und Wiesen, finden Sie hier eine Oase der Stille. Unsere Apartments sind so konzipiert, dass sie Ihnen den Raum geben, den Sie sich auch zu Hause wünschen würden, aber mit einer Aussicht, die nie langweilig wird."
+    }
+};
+
+const c = content[lang as keyof typeof content];
+---
+
+<Layout title={`${c.title} - Kamerik`} description={c.subtitle}>
+    <Hero 
+        title={c.title} 
+        subtitle={c.subtitle} 
+        ctaText={c.cta} 
+        ctaLink={getRelativeLocaleUrl(lang, 'accommodatie')}
+        image="/images/hero-home.webp"
+    />
+
+    <!-- USPs Section -->
+    <section class="py-20 bg-light">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 -mt-32 relative z-30">
+                {c.usps.map((usp, index) => (
+                    <FeatureCard 
+                        title={usp.title} 
+                        description={usp.description} 
+                        delay={index * 100}
+                    >
+                        <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            {index === 0 && <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>}
+                            {index === 1 && <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>}
+                            {index === 2 && <><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></>}
+                        </svg>
+                    </FeatureCard>
+                ))}
+            </div>
+        </div>
+    </section>
+    
+    <!-- Intro Section -->
+    <section class="py-20">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center gap-12">
+            <div class="md:w-1/2" data-aos="fade-right">
+                <div class="relative rounded-2xl overflow-hidden shadow-xl aspect-[4/3]">
+                     <img src="/images/gallery-view.webp" alt="Uitzicht over de polder" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700" />
+                </div>
+            </div>
+            <div class="md:w-1/2" data-aos="fade-left">
+                <span class="text-primary font-bold uppercase tracking-wider text-sm mb-2 block">{c.introTitle}</span>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-dark max-w-lg">Welkom in Kamerik,<br/>Parel van het Groene Hart</h2>
+                <p class="text-gray-600 text-lg leading-relaxed mb-6">
+                    {c.introText}
+                </p>
+                <a href={getRelativeLocaleUrl(lang, 'omgeving')} class="text-primary font-semibold hover:text-secondary transition-colors inline-flex items-center gap-2">
+                    Ontdek de omgeving 
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Sections -->
+    <ImpressionGallery />
+    
+    <Testimonials />
+</Layout>

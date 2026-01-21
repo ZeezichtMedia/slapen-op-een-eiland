@@ -1,0 +1,94 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Hero from '../../../components/home/Hero.astro';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+export function getStaticPaths() {
+  return [
+    {params: {lang: 'nl'}},
+    {params: {lang: 'en'}},
+    {params: {lang: 'de'}},
+  ];
+}
+
+const { lang } = Astro.params;
+
+const content = {
+    nl: {
+        title: "Onze Appartementen",
+        subtitle: "Luxe, privacy en comfort",
+        intro: "Kies voor 'West' of 'Oost'. Beide appartementen zijn identiek qua luxe en comfort, maar bieden net een ander uitzicht op het prachtige polderlandschap.",
+        units: [
+            { name: "Appartement West", desc: "Geniet van de avondzon en uitzicht richting de ondergaande zon.", price: "Vanaf €110 per nacht", image: "/images/gallery-bedroom-west.webp", link: "accommodatie/appartement-west" },
+            { name: "Appartement Oost", desc: "Word wakker met de opkomende zon en uitzicht over de weilanden.", price: "Vanaf €110 per nacht", image: "/images/gallery-bedroom-oost.webp", link: "accommodatie/appartement-oost" }
+        ],
+        amenitiesTitle: "Voorzieningen",
+        amenities: ["Volledige keuken", "Privé badkamer", "Gratis WiFi", "TV", "Koffie & Thee", "Eigen entree", "Gratis parkeren", "Bedlinnen & Handdoeken"]
+    },
+    en: {
+        title: "Our Apartments",
+        subtitle: "Luxury, privacy and comfort",
+        intro: "Choose 'West' or 'East'. Both apartments are identical in luxury and comfort, but offer a slightly different view of the beautiful polder landscape.",
+        units: [
+            { name: "Apartment West", desc: "Enjoy the evening sun and views towards the sunset.", price: "From €110 per night", image: "/images/gallery-bedroom-west.webp", link: "accommodatie/appartement-west" },
+            { name: "Apartment East", desc: "Wake up with the rising sun and views over the meadows.", price: "From €110 per night", image: "/images/gallery-bedroom-oost.webp", link: "accommodatie/appartement-oost" }
+        ],
+        amenitiesTitle: "Amenities",
+        amenities: ["Full kitchen", "Private bathroom", "Free WiFi", "TV", "Coffee & Tea", "Private entrance", "Free parking", "Bed linen & Towels"]
+    },
+    de: {
+        title: "Unsere Apartments",
+        subtitle: "Luxus, Privatsphäre und Komfort",
+        intro: "Wählen Sie 'West' oder 'Ost'. Beide Apartments sind in Luxus und Komfort identisch, bieten jedoch einen etwas anderen Blick auf die wunderschöne Polderlandschaft.",
+        units: [
+            { name: "Apartment West", desc: "Genießen Sie die Abendsonne und den Blick auf den Sonnenuntergang.", price: "Ab €110 pro Nacht", image: "/images/gallery-bedroom-west.webp", link: "accommodatie/appartement-west" },
+            { name: "Apartment Ost", desc: "Wachen Sie mit der aufgehenden Sonne und dem Blick über die Wiesen auf.", price: "Ab €110 pro Nacht", image: "/images/gallery-bedroom-oost.webp", link: "accommodatie/appartement-oost" }
+        ],
+        amenitiesTitle: "Ausstattung",
+        amenities: ["Voll ausgestattete Küche", "Privates Badezimmer", "Kostenloses WLAN", "TV", "Kaffee & Tee", "Eigener Eingang", "Kostenlose Parkplätze", "Bettwäsche & Handtücher"]
+    }
+};
+
+const c = content[lang as keyof typeof content];
+---
+
+<Layout title={`${c.title} - Slapen op een Eiland`} description={c.subtitle}>
+    <Hero title={c.title} subtitle={c.subtitle} image="/images/gallery-bedroom-west.webp" />
+
+    <section class="py-20">
+        <div class="container mx-auto px-4">
+            <p class="text-xl text-center max-w-3xl mx-auto mb-16 text-gray-600" data-aos="fade-up">{c.intro}</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                {c.units.map((unit, idx) => (
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300" data-aos="fade-up" data-aos-delay={idx * 100}>
+                        <div class="h-64 bg-gray-200 relative">
+                             <img src={unit.image} alt={unit.name} class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" />
+                        </div>
+                        <div class="p-8">
+                            <h3 class="text-2xl font-bold mb-2 text-primary">{unit.name}</h3>
+                            <p class="text-gray-600 mb-4">{unit.desc}</p>
+                            <span class="inline-block bg-secondary/10 text-secondary font-semibold px-4 py-2 rounded-full mb-6">{unit.price}</span>
+                            <a href={getRelativeLocaleUrl(lang, unit.link)} class="block text-center w-full bg-primary text-white py-3 rounded-lg font-bold hover:bg-secondary transition-colors">
+                                Bekijk & Reserveer
+                            </a>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            <!-- Amenities -->
+            <div class="mt-20 glass p-8 md:p-12 rounded-2xl" data-aos="fade-up">
+                <h3 class="text-2xl font-bold mb-8 text-center">{c.amenitiesTitle}</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    {c.amenities.map(item => (
+                        <div class="flex items-center gap-3 text-dark font-medium">
+                            <svg class="w-5 h-5 text-primary flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            {item}
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    </section>
+</Layout>

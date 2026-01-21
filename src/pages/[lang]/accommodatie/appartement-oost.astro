@@ -1,0 +1,110 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Hero from '../../../components/home/Hero.astro';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+export function getStaticPaths() {
+  return [
+    {params: {lang: 'nl'}},
+    {params: {lang: 'en'}},
+    {params: {lang: 'de'}},
+  ];
+}
+
+const { lang } = Astro.params;
+
+const content = {
+    nl: {
+        title: "Appartement Oost",
+        subtitle: "Word wakker met de zon",
+        desc: "Appartement Oost is gelegen aan de oostzijde, waardoor u 's ochtends heerlijk wakker wordt met de opkomende zon en uitzicht over de uitgestrekte weilanden. Geniet van een ontbijtje op uw privéterras terwijl de natuur ontwaakt.",
+        features: ["Uitzicht over de weilanden", "Ochtendzon", "Luxe badkamer", "Privé terras op het oosten"],
+        amenitiesTitle: "Voorzieningen",
+        amenities: ["Wifi", "TV", "Keuken", "Koffiezetapparaat", "Waterkoker", "Koelkast", "Vaatwasser", "Oven/Magnetron", "Bedlinnen", "Handdoeken", "Föhn", "Gratis parkeren", "Eigen entree"],
+        price: "Vanaf €110 per nacht",
+        bookBtn: "Reserveer Appartement Oost"
+    },
+    en: {
+        title: "Apartment East",
+        subtitle: "Wake up with the sun",
+        desc: "Apartment East is located on the east side, allowing you to wake up to the rising sun and views over the vast meadows. Enjoy breakfast on your private terrace as nature awakens.",
+        features: ["View over the meadows", "Morning sun", "Luxury bathroom", "Private east-facing terrace"],
+        amenitiesTitle: "Amenities",
+        amenities: ["Wifi", "TV", "Kitchen", "Coffee machine", "Kettle", "Fridge", "Dishwasher", "Oven/Microwave", "Bed linen", "Towels", "Hairdryer", "Free parking", "Private entrance"],
+        price: "From €110 per night",
+        bookBtn: "Book Apartment East"
+    },
+    de: {
+        title: "Apartment Ost",
+        subtitle: "Wachen Sie mit der Sonne auf",
+        desc: "Das Apartment Ost befindet sich auf der Ostseite, so dass Sie morgens mit der aufgehenden Sonne und dem Blick über die weiten Wiesen aufwachen können. Genießen Sie ein Frühstück auf Ihrer privaten Terrasse, während die Natur erwacht.",
+        features: ["Blick über die Wiesen", "Morgensonne", "Luxuriöses Badezimmer", "Private Terrasse nach Osten"],
+        amenitiesTitle: "Ausstattung",
+        amenities: ["WLAN", "TV", "Küche", "Kaffeemaschine", "Wasserkocher", "Kühlschrank", "Geschirrspüler", "Backofen/Mikrowelle", "Bettwäsche", "Handtücher", "Föhn", "Kostenlose Parkplätze", "Eigener Eingang"],
+        price: "Ab €110 pro Nacht",
+        bookBtn: "Apartment Ost Buchen"
+    }
+};
+
+const c = content[lang as keyof typeof content];
+---
+
+<Layout title={`${c.title} - Slapen op een Eiland`} description={c.desc}>
+    <Hero title={c.title} subtitle={c.subtitle} image="/images/gallery-bedroom-oost.webp" />
+
+    <section class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row gap-16">
+                <!-- Content -->
+                <div class="lg:w-2/3" data-aos="fade-right">
+                    <h2 class="text-3xl font-bold mb-6 text-primary">{c.title}</h2>
+                    <p class="text-gray-600 text-lg leading-relaxed mb-8">{c.desc}</p>
+                    
+                    <ul class="space-y-4 mb-12">
+                        {c.features.map(feature => (
+                            <li class="flex items-center gap-3 text-dark font-medium">
+                                <svg class="w-6 h-6 text-secondary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                {feature}
+                            </li>
+                        ))}
+                    </ul>
+
+                    <h3 class="text-2xl font-bold mb-6">{c.amenitiesTitle}</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        {c.amenities.map(item => (
+                            <div class="flex items-center gap-2 text-gray-600 text-sm">
+                                <svg class="w-4 h-4 text-primary/60" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                                {item}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <!-- Sidebar / CTA -->
+                <div class="lg:w-1/3" data-aos="fade-left">
+                    <div class="bg-white p-8 rounded-2xl shadow-xl sticky top-32 border border-gray-100">
+                        <div class="text-center mb-6">
+                            <span class="block text-gray-500 text-sm uppercase tracking-wide mb-2">Prijs</span>
+                            <span class="text-3xl font-bold text-primary">{c.price}</span>
+                        </div>
+                        
+                        <a href={getRelativeLocaleUrl(lang, 'contact')} class="block w-full bg-primary text-white text-center py-4 rounded-xl font-bold hover:bg-secondary transition-all transform hover:scale-105 shadow-md">
+                            {c.bookBtn}
+                        </a>
+
+                        <div class="mt-8 pt-8 border-t border-gray-100">
+                            <div class="flex items-center gap-4 text-sm text-gray-500 mb-2">
+                                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                                <span>Geschikt voor 2 personen</span>
+                            </div>
+                            <div class="flex items-center gap-4 text-sm text-gray-500">
+                                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                <span>Minimaal 2 nachten</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</Layout>
